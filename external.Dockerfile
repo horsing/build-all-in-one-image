@@ -98,14 +98,14 @@ RUN ls -alh /usr/sbin/nginx; ls -alh /usr/lib/nginx; ls -alh /etc/nginx; ls -alh
 #
 # build envoy
 #
-#FROM envoyproxy/envoy:v1.18.2 as ingress-envoy
-#
-#RUN ls -alh /etc/envoy
-#
-#RUN ls -alh /usr/local/bin/envoy* 
-#RUN ls -alh /usr/local/bin/su-exec 
-#RUN ls -alh /etc/envoy/envoy.yaml
-#RUN ls -alh  /docker-entrypoint.sh 
+FROM envoyproxy/envoy:v1.18.2 as ingress-envoy
+
+RUN ls -alh /etc/envoy
+
+RUN ls -alh /usr/local/bin/envoy* 
+RUN ls -alh /usr/local/bin/su-exec 
+RUN ls -alh /etc/envoy/envoy.yaml
+RUN ls -alh  /docker-entrypoint.sh 
 
 
 # 
@@ -206,23 +206,23 @@ RUN set -x \
 #
 # copy envoy
 #
-#ENV ENVOY_UID 0 # set to root for envoy listing on 80 prot
-#ENV ENVOY_GID 0
-#
-#RUN mkdir -p /opt/illa/envoy \
-#    && mkdir -p /etc/envoy
-#
-#COPY --from=ingress-envoy  /usr/local/bin/envoy* /usr/local/bin/
-#COPY --from=ingress-envoy  /usr/local/bin/su-exec  /usr/local/bin/
-#COPY --from=ingress-envoy  /etc/envoy/envoy.yaml  /etc/envoy/
-#
-#COPY config/envoy/illa-unit-ingress.yaml /opt/illa/envoy
-#COPY scripts/envoy-entrypoint.sh /opt/illa/envoy
-#
-#RUN chmod +x /opt/illa/envoy/envoy-entrypoint.sh \
-#    && ls -alh /usr/local/bin/envoy* \
-#    && ls -alh /usr/local/bin/su-exec \
-#    && ls -alh /etc/envoy/envoy.yaml
+ENV ENVOY_UID 0 # set to root for envoy listing on 80 prot
+ENV ENVOY_GID 0
+
+RUN mkdir -p /opt/illa/envoy \
+    && mkdir -p /etc/envoy
+
+COPY --from=ingress-envoy  /usr/local/bin/envoy* /usr/local/bin/
+COPY --from=ingress-envoy  /usr/local/bin/su-exec  /usr/local/bin/
+COPY --from=ingress-envoy  /etc/envoy/envoy.yaml  /etc/envoy/
+
+COPY config/envoy/illa-unit-ingress.yaml /opt/illa/envoy
+COPY scripts/envoy-entrypoint.sh /opt/illa/envoy
+
+RUN chmod +x /opt/illa/envoy/envoy-entrypoint.sh \
+    && ls -alh /usr/local/bin/envoy* \
+    && ls -alh /usr/local/bin/su-exec \
+    && ls -alh /etc/envoy/envoy.yaml
 
 #
 # init database 

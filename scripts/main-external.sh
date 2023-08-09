@@ -66,7 +66,7 @@ echo
 #/opt/illa/redis/redis-entrypoint.sh 2>&1 | _label "[redis entrypoint] "
 #/opt/illa/minio/minio-entrypoint.sh 2>&1 | _label "[minio entrypoint] "
 /opt/illa/nginx/nginx-entrypoint.sh 2>&1 | _label "[nginx entrypoint] "
-#/opt/illa/envoy/envoy-entrypoint.sh 2>&1 | _label "[envoy entrypoint] "
+/opt/illa/envoy/envoy-entrypoint.sh 2>&1 | _label "[envoy entrypoint] "
 
 # run postgres
 #echo
