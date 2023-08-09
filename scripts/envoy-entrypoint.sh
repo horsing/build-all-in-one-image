@@ -17,6 +17,9 @@ if [ "$1" = 'envoy' ]; then
     fi
 fi
 
+cp  /opt/illa/envoy/illa-unit-ingress.yaml /opt/illa/envoy/illa-unit-ingress.yaml.template
+cat /opt/illa/envoy/illa-unit-ingress.yaml.template | envsubst \$ILLA_DRIVE_HOST,\$ILLA_DRIVE_ENDPOINT > /opt/illa/envoy/illa-unit-ingress.yaml
+
 if [ "$ENVOY_UID" != "0" ] && [ "$USERID" = 0 ]; then
     if [ -n "$ENVOY_UID" ]; then
         usermod -u "$ENVOY_UID" envoy

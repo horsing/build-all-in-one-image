@@ -70,7 +70,7 @@ static_resources:
                             prefix: "/object-storage/"
                           route:
                             prefix_rewrite: "/"
-                            host_rewrite_literal: "127.0.0.1:9000"
+                            host_rewrite_literal: "${ILLA_DRIVE_ENDPOINT}"
                             cluster: illa_object_storage_unit
                         - match:
                             prefix: "/"
@@ -158,7 +158,7 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: 127.0.0.1
+                      address: ${ILLA_DRIVE_HOST}
                       port_value: 9000
     - name: illa_supervisor_backend_internal_unit
       type: STRICT_DNS
